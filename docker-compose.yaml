@@ -1,0 +1,15 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  web:
+    build: 
+      context: .
+      # args:  
+      #     # - NotebookApp.token=""
+      #     # - NotebookApp.password=""
+    ports:
+      - "8811:8888"
+    volumes:
+      - .:/home/jovyan/
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+      command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''"
