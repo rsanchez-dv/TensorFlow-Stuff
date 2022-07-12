@@ -1,23 +1,32 @@
-FROM jupyter/tensorflow-notebook:2022-06-27
+FROM jupyter/tensorflow-notebook:tensorflow-2.8.1
 
 #RUN apt update && apt upgrade
 USER root
 RUN jupyter notebook --generate-config -y
-RUN pip3 install jupyterlab-github
-RUN pip3 install jupyterlab_tabnine
-RUN pip3 install jupyterlab-code-formatter
-RUN pip3 install lckr-jupyterlab-variableinspector
 
-RUN pip3 install jupyterlab_theme_solarized_dark
+RUN pip3 install jupyterlab-github \
+    jupyterlab_tabnine \
+    jupyterlab-code-formatter \
+    lckr-jupyterlab-variableinspector \
+    jupyterlab_theme_solarized_dark \
+    jupyterlab_templates \
+    ipywidgets \
+    jupyterlab_materialdarker \
+    'jupyterlab>=3.0.0,<4.0.0a0' jupyterlab-lsp \
+    'python-lsp-server[all]' \
+    jupyterlab-system-monitor \
+    "jupyterlab-kite>=2.0.2" \
+    lckr-jupyterlab-variableinspector \
+    jupyterlab_execute_time
+
 RUN conda install -c conda-forge xeus-python
-RUN pip3 install jupyterlab_templates
+RUN conda install -c conda-forge ipympl
+RUN conda install -c plotly plotly=5.9.0
+RUN conda install xeus-python -c conda-forge
 RUN jupyter labextension install jupyterlab_templates
 RUN jupyter serverextension enable --py jupyterlab_templates
-
 RUN jupyter labextension install @telamonian/theme-darcula
-RUN pip install jupyterlab_materialdarker
-RUN pip install ipywidgets
-RUN pip install 'jupyterlab>=3.0.0,<4.0.0a0' jupyterlab-lsp
-RUN pip3 install jupyter-tensorboard
-# note: you may want to use our fork of python-language-server instead (see below)
-RUN pip install 'python-lsp-server[all]'
+
+#RUN pip3 install jupyter-tensorboard
+# # note: you may want to use our fork of python-language-server instead (see below)
+
