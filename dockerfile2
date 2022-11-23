@@ -1,15 +1,12 @@
-FROM jupyter/tensorflow-notebook:tensorflow-2.8.1
+FROM jupyter/datascience-notebook:2022-08-23
 
 #RUN apt update && apt upgrade
-USER root
 RUN jupyter notebook --generate-config -y
+RUN conda install -c conda-forge jupyter_contrib_nbextensions
+RUN jupyter contrib nbextension install --user
+RUN conda install -c conda-forge jupyter_nbextensions_configurator
+RUN jupyter nbextensions_configurator enable --user
 
-# MAC M1 CONFIGS
-RUN conda install -c apple tensorflow-deps -y
-RUN pip3 install tensorflow-macos
-
-RUN pip install tensorflow-metal 
-RUN conda install -c conda-forge jupyter jupyterlab -y
 
 
 
